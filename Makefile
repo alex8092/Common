@@ -48,6 +48,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
+
 install:
 	mv $(NAME) /usr/lib
 	ln -sf /usr/lib/$(SHORTNAME).1 /usr/lib/$(NAME)
