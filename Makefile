@@ -48,7 +48,7 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 NO = \033[0m
 
-all: $(NAME) print_error
+all: start print_error
 
 print_begin:
 	@rm -f .make_errors
@@ -58,7 +58,9 @@ print_error:
 	@if [ -e .make_errors ]; then cat .make_errors; fi
 	@rm -f .make_errors
 
-$(NAME): print_begin $(OBJS) print_error
+start: print_begin $(NAME) print_error
+
+$(NAME): $(OBJS)
 	@mkdir -p $(LIBDIR)
 	@$(CC) -o $@ $(OBJS) $(LDFLAGS)
 
