@@ -22,10 +22,9 @@ else
 		echo "Install in prefix : $PREFIX"
 		echo "Install librarys ..."
 		mkdir -p $PREFIX/`dirname $1`
-		mv $1 $PREFIX/`dirname $1`
+		cp $1 $PREFIX/`dirname $1`
 		mkdir -p $PREFIX/$2
 		echo "Install includes ..."
 		cp $2/common.h $PREFIX/$2
-		rm -rf $3
 	fi
 fi
