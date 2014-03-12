@@ -66,6 +66,10 @@ install:
 	@chmod +x install.sh
 	@./install.sh $(NAME) $(INCLUDEDIR) $(LIBDIR)
 
+uninstall:
+	@chmod +x install.sh
+	@./install.sh $(NAME) $(INCLUDEDIR) $(LIBDIR) uninstall
+
 $(OBJDIR)/ft_atoi.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_bzero.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_findfirstof.o: $(INCLUDEDIR)/common.h
