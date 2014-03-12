@@ -52,6 +52,8 @@ install:
 	mv $(NAME) /usr/lib
 	ln -sf /usr/lib/$(SHORTNAME).1 /usr/lib/$(NAME)
 	ln -sf /usr/lib/$(SHORTNAME) /usr/lib/$(NAME)
+	mkdir -p /usr/include/ft_common
+	cp $(INCLUDEDIR)/common.h /usr/include/ft_common
 
 $(OBJDIR)/ft_atoi.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_bzero.o: $(INCLUDEDIR)/common.h
