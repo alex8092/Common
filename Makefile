@@ -13,7 +13,8 @@ LDFLAGS = -shared -Wl,-soname,$(SHORTNAME).1
 
 OBJDIR = obj
 SRCDIR = src
-INCLUDEDIR = include
+INCLUDEDIR = include/ft_common
+LIBDIR = lib
 
 SRCS =	ft_atoi.c \
 		ft_bzero.c \
@@ -46,14 +47,15 @@ SHORTNAME = libcommon.so
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -o $@ $^ $(LDFLAGS)
+	mkdir -p $(LIBDIR)
+	$(CC) -o $(LIBDIR)/$@ $^ $(LDFLAGS)
 
 install:
-	mv $(NAME) /usr/lib
+	mv $(LIBDIR)/$(NAME) /usr/lib
 	ln -sf /usr/lib/$(SHORTNAME).1 /usr/lib/$(NAME)
 	ln -sf /usr/lib/$(SHORTNAME) /usr/lib/$(NAME)
-	mkdir -p /usr/include/ft_common
-	cp $(INCLUDEDIR)/common.h /usr/include/ft_common
+	mkdir -p /usr/$(INCLUDEDIR)
+	cp $(INCLUDEDIR)/common.h /usr/$(INCLUDEDIR)
 
 $(OBJDIR)/ft_atoi.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_bzero.o: $(INCLUDEDIR)/common.h
@@ -84,7 +86,7 @@ clean:
 	rm -rf $(OBJDIR)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -rf $(LIBDIR)
 
 re: fclean all
 
