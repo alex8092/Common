@@ -41,8 +41,7 @@ OBJS_BASE = $(SRCS:.c=.o)
 
 OBJS = $(addprefix $(OBJDIR)/, $(OBJS_BASE))
 
-NAME = libcommon.so.1.0
-SHORTNAME = libcommon.so
+NAME = libcommon.so
 
 all: $(NAME)
 
@@ -52,8 +51,8 @@ $(NAME): $(OBJS)
 
 install:
 	mv $(LIBDIR)/$(NAME) /usr/lib
-	ln -sf /usr/lib/$(SHORTNAME).1 /usr/lib/$(NAME)
-	ln -sf /usr/lib/$(SHORTNAME) /usr/lib/$(NAME)
+	ln -sf /usr/lib/$(NAME).1.0 /usr/lib/$(NAME)
+	ln -sf /usr/lib/$(NAME).1 /usr/lib/$(NAME)
 	mkdir -p /usr/$(INCLUDEDIR)
 	cp $(INCLUDEDIR)/common.h /usr/$(INCLUDEDIR)
 
