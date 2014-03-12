@@ -7,5 +7,5 @@ size_t	ft_strlen(const char *str)
 	index = 0;
 	while (str[index])
 		++index;
-	return (index);
+	return (index + 1);
 }

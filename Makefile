@@ -44,17 +44,27 @@ OBJS = $(addprefix $(OBJDIR)/, $(OBJS_BASE))
 SHORTNAME = libcommon.so
 NAME = $(LIBDIR)/$(SHORTNAME)
 
-all: $(NAME)
+RED = \033[0;31m
+GREEN = \033[0;32m
+NO = \033[0m
 
-$(NAME): $(OBJS)
-	mkdir -p $(LIBDIR)
-	$(CC) -o $@ $^ $(LDFLAGS)
+all: $(NAME) print_error
+
+print_begin:
+	@rm -f .make_errors
+	@echo "Compiling ..."
+
+print_error:
+	@if [ -e .make_errors ]; then cat .make_errors; fi
+	@rm -f .make_errors
+
+$(NAME): print_begin $(OBJS) print_error
+	@mkdir -p $(LIBDIR)
+	@$(CC) -o $@ $(OBJS) $(LDFLAGS)
 
 install:
-	mv $(NAME) /usr/lib
-	mkdir -p /usr/$(INCLUDEDIR)
-	cp $(INCLUDEDIR)/common.h /usr/$(INCLUDEDIR)
-	rm -rf $(LIBDIR)
+	@chmod +x install.sh
+	@./install.sh $(NAME) $(INCLUDEDIR) $(LIBDIR)
 
 $(OBJDIR)/ft_atoi.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_bzero.o: $(INCLUDEDIR)/common.h
@@ -77,15 +87,19 @@ $(OBJDIR)/ft_tabstradd.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_tabstrlen.o: $(INCLUDEDIR)/common.h
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	mkdir -p $(OBJDIR)
-	$(CC) -o $@ -c $< $(CFLAGS)
+	@mkdir -p $(OBJDIR)
+	@($(CC) -o $@ -c $< $(CFLAGS) 2>> .make_errors\
+	  && echo "${GREEN}[-]${NO} Compiling \"$@\"") \
+	|| echo "${RED}[x]${NO} Compiling \"$@\""
 
 clean:
-	rm -f $(OBJS)
-	rm -rf $(OBJDIR)
+	@echo "Clean objects ..."
+	@rm -f $(OBJS)
+	@rm -rf $(OBJDIR)
 
 fclean: clean
-	rm -rf $(LIBDIR)
+	@echo "Clean library ..."
+	@rm -rf $(LIBDIR)
 
 re: fclean all
 
