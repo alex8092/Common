@@ -9,11 +9,11 @@ else
 	CFLAGS += -O3
 endif
 
-LDFLAGS = -shared -Wl,-soname,$(SHORTNAME).1
+LDFLAGS = -shared
 
 OBJDIR = obj
 SRCDIR = src
-INCLUDEDIR = include/ft_common
+INCLUDEDIR = include/ft
 LIBDIR = lib
 
 SRCS =	ft_atoi.c \
@@ -41,21 +41,20 @@ OBJS_BASE = $(SRCS:.c=.o)
 
 OBJS = $(addprefix $(OBJDIR)/, $(OBJS_BASE))
 
-NAME = libcommon.so.1.0
 SHORTNAME = libcommon.so
+NAME = $(LIBDIR)/$(SHORTNAME)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	mkdir -p $(LIBDIR)
-	$(CC) -o $(LIBDIR)/$@ $^ $(LDFLAGS)
+	$(CC) -o $@ $^ $(LDFLAGS)
 
 install:
-	mv $(LIBDIR)/$(NAME) /usr/lib
-	ln -sf /usr/lib/$(SHORTNAME).1 /usr/lib/$(NAME)
-	ln -sf /usr/lib/$(SHORTNAME) /usr/lib/$(NAME)
+	mv $(NAME) /usr/lib
 	mkdir -p /usr/$(INCLUDEDIR)
 	cp $(INCLUDEDIR)/common.h /usr/$(INCLUDEDIR)
+	rm -rf $(LIBDIR)
 
 $(OBJDIR)/ft_atoi.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_bzero.o: $(INCLUDEDIR)/common.h

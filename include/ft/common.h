@@ -1,5 +1,5 @@
-#ifndef COMMON_H
-# define COMMON_H
+#ifndef FT_COMMON_H
+# define FT_COMMON_H
 
 # include <unistd.h>
 
