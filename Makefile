@@ -35,13 +35,14 @@ SRCS =	ft_atoi.c \
 		ft_strsub.c \
 		ft_strtrim.c \
 		ft_tabstradd.c \
-		ft_tabstrlen.c
+		ft_tabstrlen.c \
+		ft_match.c
 
 OBJS_BASE = $(SRCS:.c=.o)
 
 OBJS = $(addprefix $(OBJDIR)/, $(OBJS_BASE))
 
-SHORTNAME = libcommon.so
+SHORTNAME = libftcommon.so
 NAME = $(LIBDIR)/$(SHORTNAME)
 
 RED = \033[0;31m
@@ -58,7 +59,7 @@ print_error:
 	@if [ -e .make_errors ]; then cat .make_errors; fi
 	@rm -f .make_errors
 
-start: print_begin $(NAME) print_error
+start: print_begin $(OBJS) print_error $(NAME)
 
 $(NAME): $(OBJS)
 	@mkdir -p $(LIBDIR)
@@ -91,6 +92,7 @@ $(OBJDIR)/ft_strsub.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_strtrim.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_tabstradd.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_tabstrlen.o: $(INCLUDEDIR)/common.h
+$(OBJDIR)/ft_match.o: $(INCLUDEDIR)/common.h
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)

@@ -28,6 +28,7 @@ int		ft_findfirstof(char *str, char *ref);
 int		ft_strncmp(char *str, char *str2, size_t n);
 int		ft_strcmp(char *str, char *str2);
 int		ft_atoi(char const *number);
+int		ft_matchn(char *s1, char *s2);
 
 void	ft_bzero(void *ptr, int size);
 void	*ft_memalloc(int size);
