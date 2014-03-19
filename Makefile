@@ -47,7 +47,9 @@ SRCS =	ft_atoi.c \
 		ft_strdel.c \
 		ft_putstr_fd.c \
 		ft_tabstrdel.c \
-		ft_match.c
+		ft_match.c \
+		ft_putchar_fd.c \
+		ft_putnbr_fd.c
 
 OBJS_BASE = $(SRCS:.c=.o)
 

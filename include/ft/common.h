@@ -35,7 +35,9 @@ void	*ft_memalloc(int size);
 void	ft_memcpy(void *dest, void * const src, size_t size);
 void	ft_memdel(void **ap);
 void	ft_strdel(char **ap);
+void	ft_putchar_fd(int fd, char c);
 void	ft_putstr_fd(int fd, char * const str);
+void	ft_putnbr_fd(int fd, long nbr);
 void	ft_tabstrdel(char **tab);
 t_bool	ft_getnextline(int fd, char **line);
 
