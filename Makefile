@@ -14,6 +14,7 @@ ifeq ($(OS),Darwin)
 	SHORTNAME = libftcommon.dylib
 	LDFLAGS = -dynamiclib -install_name @rpath/$(SHORTNAME)
 else
+	SHORTNAME = libftcommon.so
 	LDFLAGS = -shared
 endif
 
@@ -45,7 +46,8 @@ SRCS =	ft_atoi.c \
 		ft_memdel.c \
 		ft_strdel.c \
 		ft_putstr_fd.c \
-		ft_tabstrdel.c
+		ft_tabstrdel.c \
+		ft_match.c
 
 OBJS_BASE = $(SRCS:.c=.o)
 
@@ -104,6 +106,7 @@ $(OBJDIR)/ft_memdel.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_strdel.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_putstr_fd.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_tabstrdel.o: $(INCLUDEDIR)/common.h
+$(OBJDIR)/ft_match.o: $(INCLUDEDIR)/common.h
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
