@@ -32,6 +32,10 @@ int		ft_atoi(char const *number);
 void	ft_bzero(void *ptr, int size);
 void	*ft_memalloc(int size);
 void	ft_memcpy(void *dest, void * const src, size_t size);
+void	ft_memdel(void **ap);
+void	ft_strdel(char **ap);
+void	ft_putstr_fd(int fd, char * const str);
+t_bool	ft_getnextline(int fd, char **line);
 
 #endif
 

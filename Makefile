@@ -9,7 +9,13 @@ else
 	CFLAGS += -O3
 endif
 
-LDFLAGS = -shared
+OS = $(shell uname -s)
+ifeq ($(OS),Darwin)
+	SHORTNAME = libftcommon.dylib
+	LDFLAGS = -dynamiclib -install_name @rpath/$(SHORTNAME)
+else
+	LDFLAGS = -shared
+endif
 
 OBJDIR = obj
 SRCDIR = src
@@ -35,13 +41,16 @@ SRCS =	ft_atoi.c \
 		ft_strsub.c \
 		ft_strtrim.c \
 		ft_tabstradd.c \
-		ft_tabstrlen.c
+		ft_tabstrlen.c \
+		ft_memdel.c \
+		ft_strdel.c \
+		ft_putstr_fd.c \
+		ft_tabstrdel.c
 
 OBJS_BASE = $(SRCS:.c=.o)
 
 OBJS = $(addprefix $(OBJDIR)/, $(OBJS_BASE))
 
-SHORTNAME = libcommon.so
 NAME = $(LIBDIR)/$(SHORTNAME)
 
 RED = \033[0;31m
@@ -58,7 +67,7 @@ print_error:
 	@if [ -e .make_errors ]; then cat .make_errors; fi
 	@rm -f .make_errors
 
-start: print_begin $(NAME) print_error
+start: print_begin $(OBJS) print_error $(NAME)
 
 $(NAME): $(OBJS)
 	@mkdir -p $(LIBDIR)
@@ -91,6 +100,10 @@ $(OBJDIR)/ft_strsub.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_strtrim.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_tabstradd.o: $(INCLUDEDIR)/common.h
 $(OBJDIR)/ft_tabstrlen.o: $(INCLUDEDIR)/common.h
+$(OBJDIR)/ft_memdel.o: $(INCLUDEDIR)/common.h
+$(OBJDIR)/ft_strdel.o: $(INCLUDEDIR)/common.h
+$(OBJDIR)/ft_putstr_fd.o: $(INCLUDEDIR)/common.h
+$(OBJDIR)/ft_tabstrdel.o: $(INCLUDEDIR)/common.h
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
